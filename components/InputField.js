@@ -25,7 +25,7 @@ const InputField = ({
     );
   } else {
     return (
-      <div className='w-full form-group flex flex-col'>
+      <div className='w-full form-group flex flex-col justify-center'>
         {label && (
           <label className='mb-2 tracking-widest text-lg' htmlFor='input-field'>
             {label}
@@ -35,7 +35,7 @@ const InputField = ({
           type={type}
           value={value}
           name={name}
-          className={`p-2 border-2 focus:bg-white border-black rounded bg-transparent {className}`}
+          className={`p-2 border-2 focus:bg-white outline-none border-black rounded bg-transparent ${className}`}
           placeholder={placeholder}
           onChange={onChange}
         />

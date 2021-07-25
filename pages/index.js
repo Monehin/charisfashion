@@ -5,8 +5,9 @@ import Slider from '../components/Slider';
 import Products from '../components/Products';
 import Footer from '../components/Footer';
 import Layout from '../components/Layout';
+const BASE_URL = 'http://localhost:1337/';
 
-export default function Home() {
+export default function Home({ products, slides }) {
   return (
     <Layout>
       <div className='flex flex-col items-center w-full'>
@@ -19,12 +20,30 @@ export default function Home() {
 
         <Logo />
 
-        <Slider />
+        <Slider images={slides.images} />
 
-        <Products />
+        <Products products={products} />
 
         <Footer />
       </div>
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  const [products, slides] = await Promise.all([
+    fetch(`${BASE_URL}products`).then((data) => data.json()),
+    fetch(`${BASE_URL}slides`).then((data) => data.json()),
+  ]);
+  if (!products || !slides) {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: {
+      products,
+      slides,
+    },
+  };
 }
