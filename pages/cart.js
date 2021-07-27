@@ -2,13 +2,13 @@ import { useContext, useState } from 'react';
 import CartCard from '../components/CartCard';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import InputField from '../components/InputField';
 import Link from 'next/link';
 import { CartContext } from '../context/CartContext';
+import { useRouter } from 'next/router';
 
 const Cart = () => {
+  const router = useRouter();
   const { cart } = useContext(CartContext);
-  const [totalPrice, setTotalPrice] = useState();
 
   const getTotalPrice = () => {
     return cart
@@ -50,7 +50,10 @@ const Cart = () => {
                     <p>Subtotal</p>
                     <p>{getTotalPrice()} RWF</p>
                   </div>
-                  <button className='bg-black  py-4 rounded text-white tracking-widest uppercase w-full text-sm mt-5'>
+                  <button
+                    onClick={() => router.push('./checkout')}
+                    className='bg-black  py-4 rounded text-white tracking-widest uppercase w-full text-sm mt-5'
+                  >
                     Checkout
                   </button>
                   <Link href='/products' className=''>
