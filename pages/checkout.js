@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import Image from 'next/image';
 import imageUrl from '../utils/imageUrl';
 import { Badge } from 'antd';
+import { postData } from '../utils/fetch';
 
 import {
   LocationMarkerIcon,
@@ -17,10 +18,12 @@ import {
   PhoneIcon,
   AtSymbolIcon,
 } from '@heroicons/react/solid';
+import { data } from 'browserslist';
+
+const BASE_URL = 'http://localhost:1337/';
 
 const Checkout = () => {
   const router = useRouter();
-
   const { cart } = useContext(CartContext);
   const [totalPrice] = useState();
 
@@ -29,8 +32,10 @@ const Checkout = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => console.log(data);
+  } = useForm({
+    country: 'Rwanda',
+    city: 'Kigali City',
+  });
 
   const getTotalPrice = () => {
     return cart
@@ -40,34 +45,60 @@ const Checkout = () => {
       }, 0);
   };
 
+  const onSubmit = async (data) => {
+    try {
+      const res = await postData(`${BASE_URL}orders`, { ...data, items: cart });
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <Header />
       <div className='w-full bg-[#F3F3F3] py-6 sm:py-16 flex justify-center lg:px-8'>
-        <div className='flex flex-col items-center justify-center w-11/12  sm:w-2/3  lg:w-[70rem] space-y-8 '>
+        <div className='flex flex-col items-center justify-center w-11/12  sm:8/6  lg:w-[70rem] space-y-8 '>
           <h2 className='flex flex-col items-center text-2xl sm:text-3xl text-center font-normal transition-all duration-100 ease-in-out group-hover:font-normal uppercase tracking-widest group-hover:text-grey-100 '>
             Checkout
             <hr className='bg-black h-[3px] w-6 text-center mt-2' />
           </h2>
 
-          <div className='w-full flex flex-col mt-5 lg:flex-row lg:justify-around lg:space-x-8 '>
-            <div className='w-full flex flex-col md:flex-row justify-center  md:w-10/12 space-x-8'>
+          <div className='w-full flex flex-col mt-5 lg:flex-row lg:justify-around lg:space-x-8'>
+            <div className='w-full flex flex-col md:flex-row justify-center lg:w-10/12 md:space-x-8'>
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 className='w-full md:w-7/12 flex flex-col items-center space-y-8'
               >
-                <div className='relative flex flex-col w-full'>
-                  <UserCircleIcon className='absolute m-auto top-0 bottom-0 ml-3 w-5 text-gray-300' />
-                  <input
-                    className={`p-2 pl-10 border-2 focus:bg-white outline-none border-black rounded bg-transparent`}
-                    defaultValue=''
-                    placeholder='Full Name'
-                    {...register('name', { required: true })}
-                  />
-                  <p className='text-red-500'>
-                    {errors.name && <span>Enter your name</span>}
-                  </p>
+                {/* First Name */}
+                <div className=' w-full flex space-x-2 md:space-x-4 justify-between md:justify-center '>
+                  <div className='relative flex flex-col w-1/2 sm:w-1/2'>
+                    <UserCircleIcon className='absolute m-auto top-0 bottom-0 ml-2 w-5 text-gray-300' />
+                    <input
+                      className={`p-2 pl-10 border-2 focus:bg-white outline-none border-black rounded bg-transparent`}
+                      {...register('firstname', { required: true })}
+                      placeholder='First Name'
+                    />
+                    <p className='absolute bottom-11 text-red-500'>
+                      {errors.firstname && <span>Enter your first name</span>}
+                    </p>
+                  </div>
+
+                  {/* Last Name */}
+                  <div className='relative flex flex-col w-1/2'>
+                    <UserCircleIcon className='absolute m-auto top-0 bottom-0 ml-2 w-5 text-gray-300' />
+                    <input
+                      className={`w-full p-2 pl-10 border-2 focus:bg-white outline-none border-black rounded bg-transparent`}
+                      {...register('lastname', { required: true })}
+                      placeholder='Last Name'
+                    />
+                    <p className='absolute bottom-11 text-red-500'>
+                      {errors.lastname && <span>Enter your last name</span>}
+                    </p>
+                  </div>
                 </div>
+
+                {/* Email Address */}
                 <div className='relative flex flex-col w-full'>
                   <AtSymbolIcon className='absolute m-auto top-0 bottom-0 ml-3 w-5 text-gray-300' />
                   <input
@@ -75,10 +106,12 @@ const Checkout = () => {
                     {...register('email', { required: true })}
                     placeholder='Email'
                   />
-                  <p className='text-red-500'>
+                  <p className='absolute bottom-11 text-red-500'>
                     {errors.email && <span>Enter your email</span>}
                   </p>
                 </div>
+
+                {/*  Phone Number */}
                 <div className='relative flex flex-col w-full'>
                   <PhoneIcon className='absolute m-auto top-0 bottom-0 ml-3 w-5 text-gray-300' />
                   <input
@@ -86,46 +119,48 @@ const Checkout = () => {
                     {...register('phone', { required: true })}
                     placeholder='Phone Number'
                   />
-                  <p className='text-red-500'>
+                  <p className='absolute bottom-11 text-red-500'>
                     {errors.phone && <span>Enter your phone number</span>}
                   </p>
                 </div>
-                <div className=' w-full flex space-x-4'>
-                  <div className='relative flex flex-col w-full'>
-                    <LocationMarkerIcon className='absolute m-auto top-0 bottom-0 ml-2 w-6 text-gray-300' />
+
+                {/*   Location */}
+                <div className=' w-full flex space-x-2 md:space-x-4 justify-between md:justify-center '>
+                  {/*   Country */}
+                  <div className='relative flex flex-col w-1/2 sm:w-1/2'>
+                    <LocationMarkerIcon className='absolute m-auto top-0 bottom-0 ml-2 w-5 text-gray-300' />
                     <input
                       className={`p-2 pl-10 border-2 focus:bg-white outline-none border-black rounded bg-transparent`}
                       {...register('country', { required: true })}
-                      defaultValue='Rwanda'
-                      placeholder='Country'
-                      disabled
                     />
-                    <p className='text-red-500'>
+                    {/* <p className='absolute bottom-11 text-red-500'>
                       {errors.country && <span>Enter your address</span>}
-                    </p>
+                    </p> */}
                   </div>
-                  <div className='relative flex flex-col w-full'>
-                    <LocationMarkerIcon className='absolute m-auto top-0 bottom-0 ml-2 w-6 text-gray-300' />
+
+                  {/*   City */}
+                  <div className='relative flex flex-col w-1/2'>
+                    <LocationMarkerIcon className='absolute m-auto top-0 bottom-0 ml-2 w-5 text-gray-300' />
                     <input
-                      className={`p-2 pl-10 border-2 focus:bg-white outline-none border-black rounded bg-transparent`}
+                      className={`w-full p-2 pl-10 border-2 focus:bg-white outline-none border-black rounded bg-transparent`}
                       {...register('city', { required: true })}
-                      defaultValue='Kigali City'
                       placeholder='City'
-                      disabled
                     />
-                    <p className='text-red-500'>
+                    {/* <p className='absolute bottom-11 text-red-500'>
                       {errors.city && <span>Enter your address</span>}
-                    </p>
+                    </p> */}
                   </div>
                 </div>
+
+                {/*   Address */}
                 <div className='relative flex flex-col w-full'>
-                  <LocationMarkerIcon className='absolute m-auto top-0 bottom-0 ml-2 w-6 text-gray-300' />
+                  <LocationMarkerIcon className='absolute m-auto top-0 bottom-0 ml-2 w-5 text-gray-300' />
                   <input
-                    className={`p-2 pl-10 border-2 focus:bg-white outline-none border-black rounded bg-transparent`}
+                    className={`w-full p-2 pl-10 border-2 focus:bg-white outline-none border-black rounded bg-transparent`}
                     {...register('address', { required: true })}
                     placeholder='Address'
                   />
-                  <p className='text-red-500'>
+                  <p className='absolute bottom-11 text-red-500'>
                     {errors.address && <span>Enter your address</span>}
                   </p>
                 </div>
@@ -136,11 +171,15 @@ const Checkout = () => {
                   value='Complete Order'
                 />
               </form>
-              <div className='w-full md:w-1/2'>
+
+              <div className='w-full md:w-1/2 mt-10 md:mt-0'>
                 {cart.length ? (
-                  <div className='uppercase lg:border py-6 lg:px-6 border-black h-auto'>
-                    {cart.map((product) => (
-                      <div className='flex justify-between items-center text-sm font-lg my-2'>
+                  <div className='relative w-full uppercase border border-black p-6 lg:px-6 '>
+                    {cart.map((product, key) => (
+                      <div
+                        key={key}
+                        className='flex justify-between items-center text-sm font-lg my-2'
+                      >
                         <div className='flex items-center space-x-4 mb-2'>
                           <Badge count={product.quantity}>
                             <Image
