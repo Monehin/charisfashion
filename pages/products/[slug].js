@@ -39,13 +39,7 @@ const Product = ({ products, product }) => {
         <Head>
           <title>Products | charisfashion</title>
           <link rel='icon' href='/favicon.ico' />
-          <meta
-            name='description'
-            content='Charisfashion fashion, cloths, dresses, and kitenge designs are the top notch and classy. Charisfashion designer is the best african fashion clothing house in Rwanda.
-            We make dresses for women, african fashion dresses, rwandan fashion design , womens clothing online, womens clothes, nigeria fashion kitenge.
-            african print, nigerian ankara,  fashion trends, Kitenge fashion, Rwanda Kitenge Dress
-            '
-          />
+
           <meta name='robots' content='index, follow' />
         </Head>
 
@@ -122,7 +116,7 @@ export async function getStaticProps({ params }) {
     data.json()
   );
   const product = products.find((product) => product.slug === slug);
-  if (!products || !!products.length) {
+  if (!products) {
     return {
       notFound: true,
     };
@@ -136,12 +130,15 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`${server}/products`);
-  const products = await res.json();
-  const paths = products.length
-    ? products.map((item) => ({
-        params: { slug: item.slug },
-      }))
-    : [];
+  const products = await fetch(`${server}/products`).then((product) =>
+    product.json()
+  );
+  const paths = products.map((product) => {
+    return {
+      params: {
+        slug: product.slug,
+      },
+    };
+  });
   return { paths, fallback: false };
 }
