@@ -19,10 +19,15 @@ export default function Home({ products, slides }) {
         <NavBar />
 
         <Logo />
+        {slides.images.length ? <Slider images={slides.images} /> : null}
 
-        <Slider images={slides.images} />
-
-        <Products products={products} />
+        {products.length ? (
+          <Products products={products} />
+        ) : (
+          <h1 className='text-2xl uppercase animate-bounce my-20'>
+            New Designs Coming Soon!!!
+          </h1>
+        )}
 
         <Footer />
       </div>
@@ -48,6 +53,7 @@ export async function getStaticProps() {
         products,
         slides,
       },
+      revalidate: 10,
     };
   } catch {
     return {

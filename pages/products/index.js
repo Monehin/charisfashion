@@ -74,6 +74,7 @@ export async function getStaticProps() {
         products,
         collections,
       },
+      revalidate: 10,
     };
   } catch {
     return {

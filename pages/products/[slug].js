@@ -125,6 +125,7 @@ export async function getStaticProps({ params }) {
         products,
         product,
       },
+      revalidate: 10,
     };
   } catch {
     return {
