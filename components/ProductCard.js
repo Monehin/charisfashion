@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import imageUrl from '../utils/imageUrl';
-const BASE_URL = 'http://localhost:1337/';
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const ProductCard = ({ product }) => {
   const image = imageUrl(product.image, 'small');

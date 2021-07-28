@@ -58,6 +58,10 @@ const CartContextProvider = (props) => {
     );
   };
 
+  const resetCart = (product) => {
+    setCart([]);
+  };
+
   const getTotalPrice = () => {
     return cart
       .map((c) => parseInt(c.price) * c.quantity)
@@ -68,7 +72,7 @@ const CartContextProvider = (props) => {
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, updateCartQuantity }}
+      value={{ cart, addToCart, removeFromCart, updateCartQuantity, resetCart }}
     >
       {props.children}
     </CartContext.Provider>

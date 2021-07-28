@@ -5,7 +5,7 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import Products from '../../components/Products';
 
-const BASE_URL = 'http://localhost:1337/';
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const index = ({ products, collections }) => {
   const [productList, setProducts] = useState(products);

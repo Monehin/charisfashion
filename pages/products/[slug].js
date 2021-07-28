@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { Select, Radio, InputNumber } from 'antd';
 import imageUrl from '../../utils/imageUrl';
 
-const BASE_URL = 'http://localhost:1337/';
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const Product = ({ products, product }) => {
   const router = useRouter();

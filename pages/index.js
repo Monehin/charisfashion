@@ -5,7 +5,7 @@ import Slider from '../components/Slider';
 import Products from '../components/Products';
 import Footer from '../components/Footer';
 import Layout from '../components/Layout';
-const BASE_URL = 'http://localhost:1337/';
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function Home({ products, slides }) {
   return (
