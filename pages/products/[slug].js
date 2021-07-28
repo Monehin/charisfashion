@@ -9,8 +9,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Select, Radio, InputNumber } from 'antd';
 import imageUrl from '../../utils/imageUrl';
-
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+import { server } from '../../utils/fetch';
+const BASE_URL = server;
 
 const Product = ({ products, product }) => {
   const router = useRouter();
@@ -135,10 +135,13 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`${BASE_URL}/products`);
+  const res = await fetch(`${BASE_URL}products`);
   const products = await res.json();
+
+  // Get the paths we want to pre-render based on posts
   const paths = products.map((post) => ({
     params: { slug: post.slug },
   }));
+
   return { paths, fallback: false };
 }

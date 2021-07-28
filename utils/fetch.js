@@ -15,3 +15,9 @@ export async function postData(url = '', data = {}) {
   });
   return response.json(); // parses JSON response into native JavaScript objects
 }
+
+const dev = process.env.NODE_ENV !== 'production';
+
+export const server = dev
+  ? 'http://localhost:1337'
+  : 'https://charisfashion.herokuapp.com/';

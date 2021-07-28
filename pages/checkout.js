@@ -19,7 +19,8 @@ import {
   AtSymbolIcon,
 } from '@heroicons/react/solid';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+import { server } from '../utils/fetch';
+const BASE_URL = server;
 
 const Checkout = () => {
   const router = useRouter();

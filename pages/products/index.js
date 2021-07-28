@@ -5,7 +5,8 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import Products from '../../components/Products';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+import { server } from '../../utils/fetch';
+const BASE_URL = server;
 
 const index = ({ products, collections }) => {
   const [productList, setProducts] = useState(products);
@@ -33,7 +34,7 @@ const index = ({ products, collections }) => {
             >
               All
             </h2>
-            {collections.length
+            {collections && collections.length
               ? collections.map((collection, key) => (
                   <h2
                     className=' cursor-pointer'

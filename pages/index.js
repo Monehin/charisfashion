@@ -5,7 +5,8 @@ import Slider from '../components/Slider';
 import Products from '../components/Products';
 import Footer from '../components/Footer';
 import Layout from '../components/Layout';
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+import { server } from '../utils/fetch';
+const BASE_URL = server;
 
 export default function Home({ products, slides }) {
   return (
@@ -19,7 +20,9 @@ export default function Home({ products, slides }) {
         <NavBar />
 
         <Logo />
-        {slides.images.length ? <Slider images={slides.images} /> : null}
+        {slides.images && slides.images.length ? (
+          <Slider images={slides.images} />
+        ) : null}
 
         {products && products.length ? (
           <Products products={products} />
