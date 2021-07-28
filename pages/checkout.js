@@ -1,16 +1,15 @@
 import { useContext, useState, useEffect } from 'react';
-import CartCard from '../components/CartCard';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Link from 'next/link';
 import { CartContext } from '../context/CartContext';
-import InputField from '../components/InputField';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Image from 'next/image';
 import imageUrl from '../utils/imageUrl';
 import { Badge } from 'antd';
-import { postData } from '../utils/fetch';
+import { postData, server } from '../utils/fetch';
+import Head from 'next/head';
 
 import {
   LocationMarkerIcon,
@@ -18,9 +17,6 @@ import {
   PhoneIcon,
   AtSymbolIcon,
 } from '@heroicons/react/solid';
-
-import { server } from '../utils/fetch';
-const BASE_URL = server;
 
 const Checkout = () => {
   const router = useRouter();
@@ -64,20 +60,30 @@ const Checkout = () => {
 
   const onSubmit = async (data) => {
     try {
-      const res = await postData(`${BASE_URL}/orders`, {
+      const res = await postData(`${server}/orders`, {
         ...data,
         items: orderData,
       });
       resetCart();
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (
     <>
       {cart.length ? (
         <div>
+          <Head>
+            <title>Checkout | charisfashion Rwanda</title>
+            <link rel='icon' href='/favicon.ico' />
+            <meta
+              name='description'
+              content='Charisfashion fashion, cloths, dresses, and kitenge designs are the top notch and classy. Charisfashion designer is the best african fashion clothing house in Rwanda.
+			  We make dresses for women, african fashion dresses, rwandan fashion design , womens clothing online, womens clothes, nigeria fashion kitenge.
+			  african print, nigerian ankara,  fashion trends, Kitenge fashion, Rwanda Kitenge Dress
+			  '
+            />
+            <meta name='robots' content='index, follow' />
+          </Head>
           <Header />
           <div className='w-full bg-[#F3F3F3] py-6 sm:py-16 flex justify-center lg:px-8'>
             <div className='flex flex-col items-center justify-center w-11/12  sm:8/6  lg:w-[70rem] space-y-8 '>
@@ -211,6 +217,7 @@ const Checkout = () => {
                                   src={imageUrl(product.image, 'small')}
                                   height='50'
                                   width='45'
+                                  alt={product.title}
                                 />
                               </Badge>
                               <div>

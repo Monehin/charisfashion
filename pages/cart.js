@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import CartCard from '../components/CartCard';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Head from 'next/head';
 import Link from 'next/link';
 import { CartContext } from '../context/CartContext';
 import { useRouter } from 'next/router';
@@ -19,7 +20,20 @@ const Cart = () => {
   };
   return (
     <div>
+      <Head>
+        <title>Cart | charisfashion Rwanda</title>
+        <link rel='icon' href='/favicon.ico' />
+        <meta
+          name='description'
+          content='Charisfashion fashion, cloths, dresses, and kitenge designs are the top notch and classy. Charisfashion designer is the best african fashion clothing house in Rwanda.
+          We make dresses for women, african fashion dresses, rwandan fashion design , womens clothing online, womens clothes, nigeria fashion kitenge.
+          african print, nigerian ankara,  fashion trends, Kitenge fashion, Rwanda Kitenge Dress
+          '
+        />
+        <meta name='robots' content='index, follow' />
+      </Head>
       <Header />
+
       <div className='w-full bg-[#F3F3F3] py-6 sm:py-16 flex justify-center lg:px-8'>
         <div className='flex flex-col items-center justify-center w-11/12  sm:w-2/3 lg:w-[70rem] space-y-8 '>
           <h2 className='flex flex-col items-center text-2xl sm:text-3xl text-center font-normal transition-all duration-100 ease-in-out group-hover:font-normal uppercase tracking-widest group-hover:text-grey-100 '>

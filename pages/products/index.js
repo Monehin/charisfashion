@@ -6,7 +6,6 @@ import Header from '../../components/Header';
 import Products from '../../components/Products';
 
 import { server } from '../../utils/fetch';
-const BASE_URL = server;
 
 const index = ({ products, collections }) => {
   const [productList, setProducts] = useState(products);
@@ -19,8 +18,16 @@ const index = ({ products, collections }) => {
     <Layout>
       <div className='flex flex-col items-center w-full'>
         <Head>
-          <title>Products | charisfashion</title>
+          <title>Products | charisfashion Rwanda</title>
           <link rel='icon' href='/favicon.ico' />
+          <meta
+            name='description'
+            content='Charisfashion fashion, cloths, dresses, and kitenge designs are the top notch and classy. Charisfashion designer is the best african fashion clothing house in Rwanda.
+            We make dresses for women, african fashion dresses, rwandan fashion design , womens clothing online, womens clothes, nigeria fashion kitenge.
+            african print, nigerian ankara,  fashion trends, Kitenge fashion, Rwanda Kitenge Dress
+            '
+          />
+          <meta name='robots' content='index, follow' />
         </Head>
 
         <Header />
@@ -61,8 +68,8 @@ export default index;
 export async function getStaticProps() {
   try {
     const [products, collections] = await Promise.all([
-      fetch(`${BASE_URL}/products`).then((data) => data.json()),
-      fetch(`${BASE_URL}/collections`).then((data) => data.json()),
+      fetch(`${server}/products`).then((data) => data.json()),
+      fetch(`${server}/collections`).then((data) => data.json()),
     ]);
 
     if (!products || !collections) {

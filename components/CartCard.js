@@ -32,6 +32,7 @@ const CartCard = ({ cart }) => {
           src={image}
           height='100'
           width='70'
+          alt={cart.title}
         />
         <div className='mx-2 tracking-widest '>
           <h2 className='text-lg sm:text-xl'>

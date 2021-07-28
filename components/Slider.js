@@ -12,6 +12,7 @@ const Slider = ({ images }) => {
         src={`${imageUrl}${imageSize.hash}${imageSize.ext}`}
         height='600'
         width='1200'
+        alt='Charisfashion image slider'
       />
     </div>
   );

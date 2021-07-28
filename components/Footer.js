@@ -15,13 +15,25 @@ const Footer = () => {
         <Link href='/cart'>CART</Link>
       </nav>
       <div className='flex mt-4 justify-center gap-10'>
-        <a target='_blank' href='http://www.instagram.com/charisfashiondesign'>
+        <a
+          target='_blank'
+          rel='noopener'
+          href='http://www.instagram.com/charisfashiondesign'
+        >
           <InstagramFilled className='text-2xl transition transform hover:scale-125' />
         </a>
-        <a target='_blank' href='http://www.instagram.com/charisfashiondesign'>
+        <a
+          target='_blank'
+          rel='noopener'
+          href='http://www.instagram.com/charisfashiondesign'
+        >
           <FacebookFilled className='text-2xl transition transform hover:scale-125' />
         </a>
-        <a target='_blank' href='http://www.instagram.com/charisfashiondesign'>
+        <a
+          target='_blank'
+          rel='noopener'
+          href='http://www.instagram.com/charisfashiondesign'
+        >
           <TwitterOutlined className='text-2xl transition transform hover:scale-125' />
         </a>
       </div>

@@ -7,8 +7,16 @@ const Contact = () => {
   return (
     <div>
       <Head>
-        <title>Contact Us | charisfashion</title>
+        <title>Contact Us | charisfashion Rwanda</title>
         <link rel='icon' href='/favicon.ico' />
+        <meta
+          name='description'
+          content='Charisfashion fashion, cloths, dresses, and kitenge designs are the top notch and classy. Charisfashion designer is the best african fashion clothing house in Rwanda.
+          We make dresses for women, african fashion dresses, rwandan fashion design , womens clothing online, womens clothes, nigeria fashion kitenge.
+          african print, nigerian ankara,  fashion trends, Kitenge fashion, Rwanda Kitenge Dress
+          '
+        />
+        <meta name='robots' content='index, follow' />
       </Head>
       <Header />
       <div className='w-full bg-[#F3F3F3] py-20 flex justify-center'>

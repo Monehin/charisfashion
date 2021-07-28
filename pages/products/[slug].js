@@ -10,13 +10,12 @@ import Link from 'next/link';
 import { Select, Radio, InputNumber } from 'antd';
 import imageUrl from '../../utils/imageUrl';
 import { server } from '../../utils/fetch';
-const BASE_URL = server;
 
 const Product = ({ products, product }) => {
   const router = useRouter();
 
   const { addToCart } = useContext(CartContext);
-  const image = imageUrl(product.image, 'medium');
+  const image = imageUrl(product?.image, 'medium');
 
   const { Option } = Select;
   const [size, setSize] = useState('S');
@@ -40,6 +39,14 @@ const Product = ({ products, product }) => {
         <Head>
           <title>Products | charisfashion</title>
           <link rel='icon' href='/favicon.ico' />
+          <meta
+            name='description'
+            content='Charisfashion fashion, cloths, dresses, and kitenge designs are the top notch and classy. Charisfashion designer is the best african fashion clothing house in Rwanda.
+            We make dresses for women, african fashion dresses, rwandan fashion design , womens clothing online, womens clothes, nigeria fashion kitenge.
+            african print, nigerian ankara,  fashion trends, Kitenge fashion, Rwanda Kitenge Dress
+            '
+          />
+          <meta name='robots' content='index, follow' />
         </Head>
 
         <Header />
@@ -96,6 +103,7 @@ const Product = ({ products, product }) => {
               src={image}
               height='500'
               width='400'
+              alt={product.title}
             />
           </div>
         </div>
@@ -109,39 +117,31 @@ const Product = ({ products, product }) => {
 export default Product;
 
 export async function getStaticProps({ params }) {
-  try {
-    const { slug } = params;
-    const products = await fetch(`${BASE_URL}/products`).then((data) =>
-      data.json()
-    );
-    const product = products.find((product) => product.slug === slug);
-    if (!products) {
-      return {
-        notFound: true,
-      };
-    }
-    return {
-      props: {
-        products,
-        product,
-      },
-      revalidate: 10,
-    };
-  } catch {
+  const { slug } = params;
+  const products = await fetch(`${server}/products`).then((data) =>
+    data.json()
+  );
+  const product = products.find((product) => product.slug === slug);
+  if (!products || !!products.length) {
     return {
       notFound: true,
     };
   }
+  return {
+    props: {
+      products,
+      product,
+    },
+  };
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`${BASE_URL}products`);
+  const res = await fetch(`${server}/products`);
   const products = await res.json();
-
-  // Get the paths we want to pre-render based on posts
-  const paths = products.map((post) => ({
-    params: { slug: post.slug },
-  }));
-
+  const paths = products.length
+    ? products.map((item) => ({
+        params: { slug: item.slug },
+      }))
+    : [];
   return { paths, fallback: false };
 }

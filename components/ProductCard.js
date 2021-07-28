@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import imageUrl from '../utils/imageUrl';
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const ProductCard = ({ product }) => {
   const image = imageUrl(product.image, 'small');
@@ -13,6 +12,7 @@ const ProductCard = ({ product }) => {
           src={image}
           height='350'
           width='300'
+          alt={product.title}
         />
         <div className=''>
           <h2 className='text-base sm:text-xl text-center font-light transition-all duration-100 ease-in-out group-hover:font-normal uppercase tracking-widest group-hover:text-grey-100 '>
