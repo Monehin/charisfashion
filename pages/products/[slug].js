@@ -111,7 +111,7 @@ export default Product;
 export async function getStaticProps({ params }) {
   try {
     const { slug } = params;
-    const products = await fetch(`${BASE_URL}products`).then((data) =>
+    const products = await fetch(`${BASE_URL}/products`).then((data) =>
       data.json()
     );
     const product = products.find((product) => product.slug === slug);
@@ -135,7 +135,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`${BASE_URL}products`);
+  const res = await fetch(`${BASE_URL}/products`);
   const products = await res.json();
   const paths = products.map((post) => ({
     params: { slug: post.slug },

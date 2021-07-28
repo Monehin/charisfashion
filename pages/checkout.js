@@ -63,7 +63,7 @@ const Checkout = () => {
 
   const onSubmit = async (data) => {
     try {
-      const res = await postData(`${BASE_URL}orders`, {
+      const res = await postData(`${BASE_URL}/orders`, {
         ...data,
         items: orderData,
       });

@@ -60,8 +60,8 @@ export default index;
 export async function getStaticProps() {
   try {
     const [products, collections] = await Promise.all([
-      fetch(`${BASE_URL}products`).then((data) => data.json()),
-      fetch(`${BASE_URL}collections`).then((data) => data.json()),
+      fetch(`${BASE_URL}/products`).then((data) => data.json()),
+      fetch(`${BASE_URL}/collections`).then((data) => data.json()),
     ]);
 
     if (!products || !collections) {

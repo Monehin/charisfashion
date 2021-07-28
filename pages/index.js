@@ -38,8 +38,8 @@ export default function Home({ products, slides }) {
 export async function getStaticProps() {
   try {
     const [products, slides] = await Promise.all([
-      fetch(`${BASE_URL}products`).then((data) => data.json()),
-      fetch(`${BASE_URL}slides`).then((data) => data.json()),
+      fetch(`${BASE_URL}/products`).then((data) => data.json()),
+      fetch(`${BASE_URL}/slides`).then((data) => data.json()),
     ]);
 
     if (!products || !slides) {
