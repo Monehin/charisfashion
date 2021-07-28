@@ -18,4 +18,6 @@ export async function postData(url = '', data = {}) {
 
 const dev = process.env.NODE_ENV !== 'production';
 
-export const server = dev ? 'http://localhost:1337' : 'http://localhost:1337';
+export const server = dev
+  ? 'http://localhost:1337'
+  : 'https://charisfashion.herokuapp.com';
