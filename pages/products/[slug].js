@@ -135,18 +135,10 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  try {
-    const res = await fetch(`${BASE_URL}products`);
-    const products = await res.json();
-    const paths = products.map((post) => ({
-      params: { slug: post.slug },
-    }));
-    return { paths, fallback: false };
-  } catch {
-    return {
-      notFound: true,
-    };
-  }
-
-  // Get the paths we want to pre-render based on posts
+  const res = await fetch(`${BASE_URL}products`);
+  const products = await res.json();
+  const paths = products.map((post) => ({
+    params: { slug: post.slug },
+  }));
+  return { paths, fallback: false };
 }
