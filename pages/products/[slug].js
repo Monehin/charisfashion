@@ -128,15 +128,18 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`${BASE_URL}products`);
-  const products = await res.json();
+  try {
+    const res = await fetch(`${BASE_URL}products`);
+    const products = await res.json();
+    const paths = products.map((post) => ({
+      params: { slug: post.slug },
+    }));
+    return { paths, fallback: false };
+  } catch {
+    return {
+      notFound: true,
+    };
+  }
 
   // Get the paths we want to pre-render based on posts
-  const paths = products.map((post) => ({
-    params: { slug: post.slug },
-  }));
-
-  // We'll pre-render only these paths at build time.
-  // { fallback: false } means other routes should 404.
-  return { paths, fallback: false };
 }
