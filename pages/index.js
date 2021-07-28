@@ -21,7 +21,7 @@ export default function Home({ products, slides }) {
         <Logo />
         {slides.images.length ? <Slider images={slides.images} /> : null}
 
-        {products.length ? (
+        {products && products.length ? (
           <Products products={products} />
         ) : (
           <h1 className='text-2xl uppercase animate-bounce my-20'>
