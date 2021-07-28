@@ -109,22 +109,28 @@ const Product = ({ products, product }) => {
 export default Product;
 
 export async function getStaticProps({ params }) {
-  const { slug } = params;
-  const products = await fetch(`${BASE_URL}products`).then((data) =>
-    data.json()
-  );
-  const product = products.find((product) => product.slug === slug);
-  if (!products) {
+  try {
+    const { slug } = params;
+    const products = await fetch(`${BASE_URL}products`).then((data) =>
+      data.json()
+    );
+    const product = products.find((product) => product.slug === slug);
+    if (!products) {
+      return {
+        notFound: true,
+      };
+    }
+    return {
+      props: {
+        products,
+        product,
+      },
+    };
+  } catch {
     return {
       notFound: true,
     };
   }
-  return {
-    props: {
-      products,
-      product,
-    },
-  };
 }
 
 export async function getStaticPaths() {
