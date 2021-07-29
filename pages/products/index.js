@@ -82,7 +82,7 @@ export async function getStaticProps() {
         products,
         collections,
       },
-      revalidate: 10,
+      revalidate: 5,
     };
   } catch {
     return {
