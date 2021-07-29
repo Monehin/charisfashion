@@ -126,6 +126,7 @@ export async function getStaticProps({ params }) {
       products,
       product,
     },
+    revalidate: 5,
   };
 }
 
