@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import imageUrl from '../utils/imageUrl';
+import currency from 'currency-formatter';
 
 const ProductCard = ({ product }) => {
   const image = imageUrl(product.image, 'small');
@@ -22,7 +23,10 @@ const ProductCard = ({ product }) => {
             <hr className=' border-black w-5 text-center' />
           </div>
           <p className='max-w-md text-center text-sm sm:text-base font-thin uppercase tracking-widest group-hover:font-normal'>
-            {product.price} RWF
+            {`RWF ${currency.format(product.price, {
+              code: '',
+              precision: 0,
+            })}`}
           </p>
         </div>
       </div>

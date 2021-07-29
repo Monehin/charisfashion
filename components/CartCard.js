@@ -5,7 +5,7 @@ import imageUrl from '../utils/imageUrl';
 import { CartContext } from '../context/CartContext';
 import { useRouter } from 'next/router';
 import { InputNumber } from 'antd';
-import Product from '../pages/products/[slug]';
+import currency from 'currency-formatter';
 
 const CartCard = ({ cart }) => {
   const router = useRouter();
@@ -38,7 +38,9 @@ const CartCard = ({ cart }) => {
           <h2 className='text-lg sm:text-xl'>
             {cart.title} [{cart.size}]
           </h2>
-          <h3 className='text-base sm:text-base'>{cart.price} RWF</h3>
+          <h3 className='text-base sm:text-base'>
+            {`RWF ${currency.format(cart.price, { code: '', precision: 0 })}`}
+          </h3>
           <button
             onClick={handleRemoveFromCart}
             className='text-sm uppercase tracking-widest text-purple-900 underline sm:hidden'

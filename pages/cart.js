@@ -6,6 +6,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { CartContext } from '../context/CartContext';
 import { useRouter } from 'next/router';
+import currency from 'currency-formatter';
 
 const Cart = () => {
   const router = useRouter();
@@ -62,7 +63,13 @@ const Cart = () => {
                 <div className='uppercase lg:border py-6 lg:px-6 border-black h-auto'>
                   <div className='flex justify-between text-xl font-medium'>
                     <p>Subtotal</p>
-                    <p>{getTotalPrice()} RWF</p>
+                    <p>
+                      {' '}
+                      {`RWF ${currency.format(getTotalPrice(), {
+                        code: '',
+                        precision: 0,
+                      })}`}{' '}
+                    </p>
                   </div>
                   <button
                     onClick={() => router.push('./checkout')}

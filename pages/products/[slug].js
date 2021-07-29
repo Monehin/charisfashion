@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { Select, Radio, InputNumber } from 'antd';
 import imageUrl from '../../utils/imageUrl';
 import { server } from '../../utils/fetch';
+import currency from 'currency-formatter';
 
 const Product = ({ products, product }) => {
   const router = useRouter();
@@ -53,7 +54,12 @@ const Product = ({ products, product }) => {
             <div className='flex flex-col items-center mb-0'>
               <h2 className=' hidden md:block text-lg mb-2'>{product.title}</h2>
               <hr className='hidden md:block bg-black h-[3px] w-6 text-center mb-2' />
-              <p className='text-xl mt-4 md:mt-0'>{product.price} RWF</p>
+              <p className='text-xl mt-4 md:mt-0'>
+                {`RWF ${currency.format(product.price, {
+                  code: '',
+                  precision: 0,
+                })}`}
+              </p>
             </div>
             <div className='flex items-center my-4'>
               <Radio.Group value={size} onChange={handleSizeChange}>
@@ -74,7 +80,14 @@ const Product = ({ products, product }) => {
               />
             </div>
             <p className='mt-4 font-medium'>
-              Subtotal: {`${parseInt(product.price) * quantity} RWF`}
+              {/* Subtotal: {`${parseInt(product.price) * quantity} RWF`} */}
+              {`Subtotal:  RWF ${currency.format(
+                parseInt(product.price) * quantity,
+                {
+                  code: '',
+                  precision: 0,
+                }
+              )}`}
             </p>
 
             <button

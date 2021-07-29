@@ -10,6 +10,7 @@ import imageUrl from '../utils/imageUrl';
 import { Badge } from 'antd';
 import { postData, server } from '../utils/fetch';
 import Head from 'next/head';
+import currency from 'currency-formatter';
 
 import {
   LocationMarkerIcon,
@@ -160,6 +161,7 @@ const Checkout = () => {
                       <div className='relative flex flex-col w-1/2 sm:w-1/2'>
                         <LocationMarkerIcon className='absolute m-auto top-0 bottom-0 ml-2 w-5 text-gray-300' />
                         <input
+                          placeholder='Country'
                           className={`p-2 pl-10 border-2 focus:bg-white outline-none border-black rounded bg-transparent`}
                           {...register('country', { required: true })}
                         />
@@ -227,19 +229,42 @@ const Checkout = () => {
                                     [{product.size}]
                                   </span>
                                 </p>
-                                <p className='!text-xs'>RWF {product.price}</p>
+                                <p className='!text-xs'>
+                                  {`RWF 
+                                  ${currency.format(product.price, {
+                                    code: '',
+                                    precision: 0,
+                                  })}
+                                  `}
+                                </p>
                               </div>
                             </div>
 
                             <p>
-                              RWF{' '}
-                              {product.price * parseInt(product.quantity, 0)}
+                              {`RWF 
+                                  ${currency.format(
+                                    product.price *
+                                      parseInt(product.quantity, 0),
+                                    {
+                                      code: '',
+                                      precision: 0,
+                                    }
+                                  )}
+                                  `}
                             </p>
                           </div>
                         ))}
                         <div className='flex justify-between text-xl font-medium'>
                           <p>total</p>
-                          <p>RWF {getTotalPrice()}</p>
+                          <p>
+                            {' '}
+                            {`RWF 
+                                  ${currency.format(getTotalPrice(), {
+                                    code: '',
+                                    precision: 0,
+                                  })}
+                                  `}
+                          </p>
                         </div>
                         <button
                           onClick={() => router.push('/cart')}
