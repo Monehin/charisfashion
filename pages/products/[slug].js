@@ -7,7 +7,7 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Select, Radio, InputNumber } from 'antd';
+import { Select, Radio, InputNumber, Carousel } from 'antd';
 import imageUrl from '../../utils/imageUrl';
 import { server } from '../../utils/fetch';
 import currency from 'currency-formatter';
@@ -104,14 +104,31 @@ const Product = ({ products, product }) => {
 
           {/* Right Card */}
           <div className=' w-full flex justify-center md:w-6/12'>
-            <Image
-              className=' object-contain'
-              className=' object-cover '
-              src={image}
-              height='500'
-              width='400'
-              alt={product.title}
-            />
+            {product.slides && product.slides.length ? (
+              <div className='relative w-full'>
+                <Carousel autoplay>
+                  {product.slides.map((slide) => (
+                    <Image
+                      className=' object-contain'
+                      className=' object-cover '
+                      src={imageUrl(slide, 'medium')}
+                      height='500'
+                      width='400'
+                      alt={product.title}
+                    />
+                  ))}
+                </Carousel>
+              </div>
+            ) : (
+              <Image
+                className=' object-contain'
+                className=' object-cover '
+                src={image}
+                height='500'
+                width='400'
+                alt={product.title}
+              />
+            )}
           </div>
         </div>
 

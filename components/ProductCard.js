@@ -16,13 +16,13 @@ const ProductCard = ({ product }) => {
           alt={product.title}
         />
         <div className=''>
-          <h2 className='text-base sm:text-xl text-center font-light transition-all duration-100 ease-in-out group-hover:font-normal uppercase tracking-widest group-hover:text-grey-100 '>
+          <h2 className='text-base sm:text-lg group-hover:text-[#1890ff] text-center font-light transition-all duration-100 ease-in-out group-hover:font-normal uppercase tracking-widest group-hover:text-grey-100 '>
             {product.title}
           </h2>
           <div className='my-2 flex justify-center'>
             <hr className=' border-black w-5 text-center' />
           </div>
-          <p className='max-w-md text-center text-sm sm:text-base font-thin uppercase tracking-widest group-hover:font-normal'>
+          <p className='max-w-md text-center text-sm sm:text-base group-hover:text-[#1890ff] font-thin uppercase tracking-widest group-hover:font-normal'>
             {`RWF ${currency.format(product.price, {
               code: '',
               precision: 0,
