@@ -7,8 +7,7 @@ const Slider = ({ images }) => {
   return (
     <div className='relative flex items-center justify-center '>
       <Image
-        className=' object-contain'
-        className=' object-cover !rounded-lg'
+        className=' object-contain !rounded-lg'
         src={`${imageUrl}${imageSize.hash}${imageSize.ext}`}
         height='600'
         width='1200'
