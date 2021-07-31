@@ -11,7 +11,7 @@ const Logo = () => {
         <Image
           className='object-contain !p-6 cursor-pointer'
           src='/charisfashion-logo.png'
-          height='200'
+          height='150'
           width='300'
           alt='Charisfashion Logo'
         />

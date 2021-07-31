@@ -5,7 +5,7 @@ const Slider = ({ images }) => {
   const imageUrl = image1.url.replace(new RegExp('(.*/)[^/]+$'), '$1').trim();
   const imageSize = image1.formats.large;
   return (
-    <div className='relative flex items-center justify-center '>
+    <div className='relative flex items-center justify-center'>
       <Image
         className=' object-contain !rounded-lg'
         src={`${imageUrl}${imageSize.hash}${imageSize.ext}`}
