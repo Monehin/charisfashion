@@ -16,7 +16,7 @@ const ProductCard = ({ product }) => {
           alt={product.title}
         />
         <div className=''>
-          <h2 className='text-base sm:text-lg group-hover:text-[#1890ff] text-center font-light transition-all duration-100 ease-in-out group-hover:font-normal uppercase tracking-widest group-hover:text-grey-100 '>
+          <h2 className='text-sm sm:text-lg group-hover:text-[#1890ff] text-center font-light transition-all duration-100 ease-in-out group-hover:font-normal uppercase tracking-widest group-hover:text-grey-100 '>
             {product.title}
           </h2>
           <div className='my-2 flex justify-center'>
