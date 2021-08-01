@@ -7,10 +7,11 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Image from 'next/image';
 import imageUrl from '../utils/imageUrl';
-import { Badge } from 'antd';
+import { Badge, Modal } from 'antd';
 import { postData, server } from '../utils/fetch';
 import Head from 'next/head';
 import currency from 'currency-formatter';
+import OrderComfirmationModal from '../components/OrderComfirmationModal';
 
 import {
   LocationMarkerIcon,
@@ -24,11 +25,11 @@ const Checkout = () => {
   const { cart, resetCart } = useContext(CartContext);
   const [totalPrice] = useState();
 
-  useEffect(() => {
-    if (!cart.length) {
-      router.push('/products');
-    }
-  }, [cart]);
+  // useEffect(() => {
+  //   if (!cart.length) {
+  //     router.push('/products');
+  //   }
+  // }, [cart]);
 
   const {
     register,
@@ -61,13 +62,24 @@ const Checkout = () => {
     })
   );
 
+  function success() {
+    Modal.success({
+      title: <h1 className=''>Order Completed</h1>,
+      content: <OrderComfirmationModal />,
+      onOk() {
+        resetCart();
+        router.push('/products');
+      },
+    });
+  }
+
   const onSubmit = async (data) => {
     try {
       const res = await postData(`${server}/orders`, {
         ...data,
         items: orderData,
       });
-      resetCart();
+      success();
     } catch (err) {}
   };
 
