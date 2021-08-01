@@ -36,8 +36,10 @@ const Checkout = () => {
     watch,
     formState: { errors },
   } = useForm({
-    country: 'Rwanda',
-    city: 'Kigali City',
+    defaultValues: {
+      country: 'Rwanda',
+      city: 'Kigali City',
+    },
   });
 
   const getTotalPrice = () => {
@@ -169,6 +171,7 @@ const Checkout = () => {
                       <div className='relative flex flex-col w-1/2 sm:w-1/2'>
                         <LocationMarkerIcon className='absolute m-auto top-0 bottom-0 ml-2 w-5 text-gray-300' />
                         <input
+                          readOnly
                           placeholder='Country'
                           className={`p-2 pl-10 border-2 focus:bg-white outline-none border-black rounded bg-transparent`}
                           {...register('country', { required: true })}
@@ -182,9 +185,11 @@ const Checkout = () => {
                       <div className='relative flex flex-col w-1/2'>
                         <LocationMarkerIcon className='absolute m-auto top-0 bottom-0 ml-2 w-5 text-gray-300' />
                         <input
+                          readOnly
                           className={`w-full p-2 pl-10 border-2 focus:bg-white outline-none border-black rounded bg-transparent`}
                           {...register('city', { required: true })}
                           placeholder='City'
+                          readOnly
                         />
                         <p className='absolute bottom-11 text-red-500'>
                           {errors.city && <span>Enter your City</span>}
