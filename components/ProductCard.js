@@ -3,10 +3,10 @@ import Link from 'next/link';
 import imageUrl from '../utils/imageUrl';
 import currency from 'currency-formatter';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, key }) => {
   const image = imageUrl(product.image, 'small');
   return (
-    <Link href={`/products/${product.slug}`}>
+    <Link href={`/products/${product.slug}`} key={key}>
       <div className='group cursor-pointer transition duration-200 ease-in transform sm:hover:scale-105 hover:z-50'>
         <Image
           className=' object-cover rounded-sm'

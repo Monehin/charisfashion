@@ -7,7 +7,7 @@ const Products = ({ products }) => {
       {products && products.length ? (
         products.map((product, key) => (
           <div key={key}>
-            <ProductCard key={key} product={product} />
+            <ProductCard product={product} />
           </div>
         ))
       ) : (
